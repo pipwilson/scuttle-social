@@ -80,6 +80,9 @@ function startElement($parser, $name, $attrs) {
                 case 'TAG':
                     $tags = strtolower($attrVal);
                     break;
+                case 'SHARED':
+                    $bStatus = strtolower($attrVal);
+                    break;
             }
         }
         if ($bookmarkservice->bookmarkExists($bAddress, $userservice->getCurrentUserId())) {
@@ -91,6 +94,12 @@ function startElement($parser, $name, $attrs) {
             // If bookmark claims to be from the future, set it to be now instead
             if (strtotime($bDatetime) > time()) {
                 $bDatetime = gmdate('Y-m-d H:i:s');
+            }
+
+            if ($bStatus!=null && $bStatus=='no') {
+              $status = 2;
+            } else {
+              $status = 0;
             }
 
             if ($bookmarkservice->addBookmark($bAddress, $bTitle, $bDescription, $status, $tags, $bDatetime, true, true))

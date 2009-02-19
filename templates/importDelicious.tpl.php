@@ -7,7 +7,7 @@ $this->includeTemplate($GLOBALS['top_include']);
 <tr valign="top">
     <th align="left"><?php echo T_('File'); ?></th>
     <td>
-        <input type="hidden" name="MAX_FILE_SIZE" value="1024000" />
+        <input type="hidden" name="MAX_FILE_SIZE" value="2048000" />
         <input type="file" name="userfile" size="50" />
     </td>
 </tr>

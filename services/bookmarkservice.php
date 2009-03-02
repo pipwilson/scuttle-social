@@ -158,6 +158,8 @@ class BookmarkService {
         }
         $this->db->sql_transaction('commit');
         // Everything worked out, so return the new bookmark's bId.
+        $deliciousservice = & ServiceFactory :: getServiceInstance('DeliciousService');
+        $deliciousservice->AddBookmark($address, $title, $description, $categories, $status);
         return $bId;
     }
 
@@ -226,7 +228,7 @@ class BookmarkService {
             $privacy = ' AND ((B.bStatus = 0) OR (B.uId = '. $sId .')';
             $watchnames = $userservice->getWatchNames($sId, true);
             foreach($watchnames as $watchuser) {
-                $privacy .= ' OR (U.username = "'. $watchuser .'" AND B.bStatus = 1)'; 
+                $privacy .= ' OR (U.username = "'. $watchuser .'" AND B.bStatus = 1)';
             }
             $privacy .= ')';
         } else {
@@ -397,7 +399,7 @@ class BookmarkService {
             $privacy = ' AND ((B.bStatus = 0) OR (B.uId = '. $sId .')';
             $watchnames = $userservice->getWatchNames($sId, true);
             foreach($watchnames as $watchuser) {
-                $privacy .= ' OR (U.username = "'. $watchuser .'" AND B.bStatus = 1)'; 
+                $privacy .= ' OR (U.username = "'. $watchuser .'" AND B.bStatus = 1)';
             }
             $privacy .= ')';
         } else {

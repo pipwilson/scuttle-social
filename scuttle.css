@@ -354,6 +354,9 @@ form td,
 form th {
 	font-size: small;
 }
+form tr.description th {
+  vertical-align: top;
+}
 form table {
 	margin: 0 1em;
 }

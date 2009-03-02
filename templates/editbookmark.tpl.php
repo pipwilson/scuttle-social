@@ -27,22 +27,24 @@ window.onload = function() {
 <table>
 <tr>
     <th align="left"><?php echo T_('Address'); ?></th>
-    <td><input type="text" id="address" name="address" size="75" maxlength="65535" value="<?php echo filter($row['bAddress'], 'xml'); ?>" onblur="useAddress(this)" /></td>
+    <td><input type="text" id="address" name="address" size="90" maxlength="65535" value="<?php echo filter($row['bAddress'], 'xml'); ?>" 
+onblur="useAddress(this)" /></td>
     <td>&larr; <?php echo T_('Required'); ?></td>
 </tr>
 <tr>
     <th align="left"><?php echo T_('Title'); ?></th>
-    <td><input type="text" id="titleField" name="title" size="75" maxlength="255" value="<?php echo filter($row['bTitle'], 'xml'); ?>" onkeypress="this.style.backgroundImage = 'none';" /></td>
+    <td><input type="text" id="titleField" name="title" size="90" maxlength="255" value="<?php echo filter($row['bTitle'], 'xml'); ?>" 
+onkeypress="this.style.backgroundImage = 'none';" /></td>
     <td>&larr; <?php echo T_('Required'); ?></td>
 </tr>
-<tr>
+<tr class="description">
     <th align="left"><?php echo T_('Description'); ?></th>
-    <td><input type="text" name="description" size="75" maxlength="255" value="<?php echo filter($row['bDescription'], 'xml'); ?>" /></td>
+    <td><textarea name="description" cols="87" maxlength="255"><?php echo filter($row['bDescription'], 'xml'); ?></textarea></td>
     <td></td>
 </tr>
 <tr>
     <th align="left"><?php echo T_('Tags'); ?></th>
-    <td><input type="text" id="tags" name="tags" size="75" value="<?php echo filter(implode(', ', $row['tags']), 'xml'); ?>" /></td>
+    <td><input type="text" id="tags" name="tags" size="90" value="<?php echo filter(implode(', ', $row['tags']), 'xml'); ?>" /></td>
     <td>&larr; <?php echo T_('Comma-separated'); ?></td>
 </tr>
 <tr>

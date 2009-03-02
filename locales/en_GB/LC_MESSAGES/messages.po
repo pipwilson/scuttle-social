@@ -548,7 +548,7 @@ msgstr ""
 
 #: ..\..\..\templates\editbookmark.tpl.php:46
 msgid "Comma-separated"
-msgstr ""
+msgstr "Space-separated"
 
 #: ..\..\..\templates\editbookmark.tpl.php:49
 #: ..\..\..\templates\importDelicious.tpl.php:15

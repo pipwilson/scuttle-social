@@ -31,11 +31,7 @@ class TagService {
                 if (substr($tags, -1) == ',') {
                     $tags = substr($tags, 0, -1);
                 }
-                if ($fromApi) {
-                    $tags = explode(' ', $tags);
-                } else {
-                    $tags = explode(',', $tags);
-                }
+                $tags = explode(' ', $tags);
             } else {
                 $tags = null;
             }

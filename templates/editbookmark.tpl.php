@@ -44,7 +44,7 @@ onkeypress="this.style.backgroundImage = 'none';" /></td>
 </tr>
 <tr>
     <th align="left"><?php echo T_('Tags'); ?></th>
-    <td><input type="text" id="tags" name="tags" size="90" value="<?php echo filter(implode(', ', $row['tags']), 'xml'); ?>" /></td>
+    <td><input type="text" id="tags" name="tags" size="90" value="<?php echo filter(implode(' ', $row['tags']), 'xml'); ?>" /></td>
     <td>&larr; <?php echo T_('Comma-separated'); ?></td>
 </tr>
 <tr>

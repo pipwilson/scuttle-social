@@ -64,7 +64,7 @@ function addonload(addition) {
 addonload(
     function () {
         var taglist = document.getElementById('tags');
-        var tags = taglist.value.split(', ');
+        var tags = taglist.value.split(' ');
         
         var populartags = document.getElementById('popularTags').getElementsByTagName('span');
         
@@ -79,7 +79,7 @@ addonload(
 function addTag(ele) {
     var thisTag = ele.innerHTML;
     var taglist = document.getElementById('tags');
-    var tags = taglist.value.split(', ');
+    var tags = taglist.value.split(' ');
     
     // If tag is already listed, remove it
     if (tags.contains(thisTag)) {
@@ -92,7 +92,7 @@ function addTag(ele) {
         ele.className = 'selected';
     }
     
-    taglist.value = tags.join(', ');
+    taglist.value = tags.join(' ');
     
     document.getElementById('tags').focus();
 }

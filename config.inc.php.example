@@ -116,5 +116,8 @@ $filetypes          = array(
                         );
 $reservedusers      = array('all', 'watchlist');
 
+$delicious_user     = 'DELICIOUS_USER';
+$delicious_password = 'DELICIOUS_PASS';
+
 include_once('debug.inc.php');
 ?>

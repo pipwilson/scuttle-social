@@ -158,6 +158,7 @@ class BookmarkService {
         }
         $this->db->sql_transaction('commit');
         // Everything worked out, so return the new bookmark's bId.
+        # TODO: need to sort out timeouts
         $deliciousservice = & ServiceFactory :: getServiceInstance('DeliciousService');
         $deliciousservice->AddBookmark($address, $title, $description, $categories, $status);
         return $bId;

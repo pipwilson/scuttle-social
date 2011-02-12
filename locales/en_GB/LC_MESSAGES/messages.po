@@ -1,5 +1,5 @@
 # Scuttle en-GB Translation
-# Copyright (C) 2005 - 2006 Scuttle project
+# Copyright (C) 2005 - 2006 Marcus Campbell
 # This file is distributed under the same license as the Scuttle package.
 # Marcus Campbell <marcus.campbell@gmail.com>
 #
@@ -548,7 +548,7 @@ msgstr ""
 
 #: ..\..\..\templates\editbookmark.tpl.php:46
 msgid "Comma-separated"
-msgstr "Space-separated"
+msgstr ""
 
 #: ..\..\..\templates\editbookmark.tpl.php:49
 #: ..\..\..\templates\importDelicious.tpl.php:15

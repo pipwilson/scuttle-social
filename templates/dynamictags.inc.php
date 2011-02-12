@@ -1,7 +1,6 @@
 <?php
 /***************************************************************************
-Copyright (C) 2005 - 2006 Scuttle project
-http://sourceforge.net/projects/scuttle/
+Copyright (c) 2005 - 2010 Marcus Campbell
 http://scuttle.org/
 
 This program is free software; you can redistribute it and/or modify
@@ -19,8 +18,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ***************************************************************************/
 
-$tagservice = & ServiceFactory :: getServiceInstance('TagService');
-$userservice = & ServiceFactory :: getServiceInstance('UserService');
+$tagservice  =& ServiceFactory::getServiceInstance('TagService');
+$userservice =& ServiceFactory::getServiceInstance('UserService');
 
 $logged_on_userid = $userservice->getCurrentUserId();
 
@@ -64,7 +63,7 @@ function addonload(addition) {
 addonload(
     function () {
         var taglist = document.getElementById('tags');
-        var tags = taglist.value.split(' ');
+        var tags = taglist.value.split(', ');
         
         var populartags = document.getElementById('popularTags').getElementsByTagName('span');
         
@@ -79,7 +78,7 @@ addonload(
 function addTag(ele) {
     var thisTag = ele.innerHTML;
     var taglist = document.getElementById('tags');
-    var tags = taglist.value.split(' ');
+    var tags = taglist.value.split(', ');
     
     // If tag is already listed, remove it
     if (tags.contains(thisTag)) {
@@ -92,7 +91,7 @@ function addTag(ele) {
         ele.className = 'selected';
     }
     
-    taglist.value = tags.join(' ');
+    taglist.value = tags.join(', ');
     
     document.getElementById('tags').focus();
 }
@@ -115,6 +114,4 @@ document.write('<\/p>');
 document.write('<\/div>');
 </script>
 
-<?php
-}
-?>
+<?php } ?>

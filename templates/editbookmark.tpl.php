@@ -17,34 +17,26 @@ switch ($row['bStatus']) {
 }
 ?>
 
-<script type="text/javascript">
-window.onload = function() {
-    document.getElementById("address").focus();
-}
-</script>
-
 <form action="<?php echo $formaction; ?>" method="post">
 <table>
 <tr>
     <th align="left"><?php echo T_('Address'); ?></th>
-    <td><input type="text" id="address" name="address" size="90" maxlength="65535" value="<?php echo filter($row['bAddress'], 'xml'); ?>" 
-onblur="useAddress(this)" /></td>
+    <td><input type="text" id="address" name="address" size="75" maxlength="65535" value="<?php echo filter($row['bAddress'], 'xml'); ?>" onblur="useAddress(this)" /></td>
     <td>&larr; <?php echo T_('Required'); ?></td>
 </tr>
 <tr>
     <th align="left"><?php echo T_('Title'); ?></th>
-    <td><input type="text" id="titleField" name="title" size="90" maxlength="255" value="<?php echo filter($row['bTitle'], 'xml'); ?>" 
-onkeypress="this.style.backgroundImage = 'none';" /></td>
+    <td><input type="text" id="titleField" name="title" size="75" maxlength="255" value="<?php echo filter($row['bTitle'], 'xml'); ?>" onkeypress="this.style.backgroundImage = 'none';" /></td>
     <td>&larr; <?php echo T_('Required'); ?></td>
 </tr>
-<tr class="description">
+<tr>
     <th align="left"><?php echo T_('Description'); ?></th>
-    <td><textarea name="description" cols="87" maxlength="255"><?php echo filter($row['bDescription'], 'xml'); ?></textarea></td>
+    <td><input type="text" name="description" size="75" maxlength="255" value="<?php echo filter($row['bDescription'], 'xml'); ?>" /></td>
     <td></td>
 </tr>
 <tr>
     <th align="left"><?php echo T_('Tags'); ?></th>
-    <td><input type="text" id="tags" name="tags" size="90" value="<?php echo filter(implode(' ', $row['tags']), 'xml'); ?>" /></td>
+    <td><input type="text" id="tags" name="tags" size="75" value="<?php echo filter(implode(', ', $row['tags']), 'xml'); ?>" /></td>
     <td>&larr; <?php echo T_('Comma-separated'); ?></td>
 </tr>
 <tr>
@@ -62,27 +54,24 @@ onkeypress="this.style.backgroundImage = 'none';" /></td>
     <td></td>
     <td>
         <input type="submit" name="submitted" value="<?php echo $btnsubmit; ?>" />
-        <?php
-        if ($showdelete) {
-        ?>
-        <input type="submit" name="delete" value="<?php echo T_('Delete Bookmark'); ?>" />
-        <?php
-        }
-        if ($popup) {
-        ?>
-        <input type="hidden" name="popup" value="1" />
-        <?php
-        } elseif ($referrer) {
-        ?>
-        <input type="hidden" name="referrer" value="<?php echo $referrer; ?>" />
-        <?php
-        }
-        ?>
+        <?php if ($showdelete): ?>
+          <input type="submit" name="delete" value="<?php echo T_('Delete Bookmark'); ?>" />
+        <?php endif; ?>
+        <?php if ($popup): ?>
+          <input type="hidden" name="popup" value="1" />
+        <?php elseif ($referrer): ?>
+          <input type="hidden" name="referrer" value="<?php echo $referrer; ?>" />
+        <?php endif; ?>
     </td>
     <td></td>
 </tr>
 </table>
 </form>
+<script type="text/javascript">
+$(function() {
+  $("#address").focus();
+});
+</script>
 
 <?php
 // Dynamic tag selection

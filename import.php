@@ -1,7 +1,6 @@
-<?
+<?php
 /***************************************************************************
-Copyright (C) 2004 - 2006 Scuttle project
-http://sourceforge.net/projects/scuttle/
+Copyright (c) 2004 - 2006 Marcus Campbell
 http://scuttle.org/
 
 This program is free software; you can redistribute it and/or modify
@@ -19,18 +18,21 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ***************************************************************************/
 
-require_once('header.inc.php');
-$userservice =& ServiceFactory::getServiceInstance('UserService');
+require_once 'header.inc.php';
+
+$userservice     =& ServiceFactory::getServiceInstance('UserService');
 $templateservice =& ServiceFactory::getServiceInstance('TemplateService');
+
 $tplVars = array();
 
 if ($userservice->isLoggedOn() && sizeof($_FILES) > 0 && $_FILES['userfile']['size'] > 0) {
     $userinfo = $userservice->getCurrentUser();
 
     if (isset($_POST['status']) && is_numeric($_POST['status'])) {
-        $status = intval($_POST['status']);
-    } else {
-        $status = 2;
+      $status = intval($_POST['status']);
+    }
+    else {
+      $status = 2;
     }
 
     $depth = array();
@@ -49,11 +51,12 @@ if ($userservice->isLoggedOn() && sizeof($_FILES) > 0 && $_FILES['userfile']['si
     }
     xml_parser_free($xml_parser);
     header('Location: '. createURL('bookmarks', $userinfo[$userservice->getFieldName('username')]));
-} else {
-    $templatename = 'importDelicious.tpl';
-    $tplVars['subtitle'] = T_('Import Bookmarks from del.icio.us');
-    $tplVars['formaction']  = createURL('import');
-    $templateservice->loadTemplate($templatename, $tplVars);
+}
+else {
+  $templatename = 'importDelicious.tpl';
+  $tplVars['subtitle'] = T_('Import Bookmarks from del.icio.us');
+  $tplVars['formaction']  = createURL('import');
+  $templateservice->loadTemplate($templatename, $tplVars);
 }
 
 function startElement($parser, $name, $attrs) {
@@ -80,9 +83,6 @@ function startElement($parser, $name, $attrs) {
                 case 'TAG':
                     $tags = strtolower($attrVal);
                     break;
-                case 'SHARED':
-                    $bStatus = strtolower($attrVal);
-                    break;
             }
         }
         if ($bookmarkservice->bookmarkExists($bAddress, $userservice->getCurrentUserId())) {
@@ -94,12 +94,6 @@ function startElement($parser, $name, $attrs) {
             // If bookmark claims to be from the future, set it to be now instead
             if (strtotime($bDatetime) > time()) {
                 $bDatetime = gmdate('Y-m-d H:i:s');
-            }
-
-            if ($bStatus!=null && $bStatus=='no') {
-              $status = 2;
-            } else {
-              $status = 0;
             }
 
             if ($bookmarkservice->addBookmark($bAddress, $bTitle, $bDescription, $status, $tags, $bDatetime, true, true))

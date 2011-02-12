@@ -1,26 +1,24 @@
 <?php
 class TagService {
-    var $db;
-    var $tablename;
+  var $db;
+  var $tablename;
 
-    function &getInstance(&$db) {
-        static $instance;
-        if (!isset($instance))
-            $instance =& new TagService($db);
-        return $instance;
+  function &getInstance(&$db) {
+    static $instance;
+    if (!isset($instance)) {
+      $instance = new TagService($db);
     }
+    return $instance;
+  }
 
-    function TagService(&$db) {
-        $this->db =& $db;
-        $this->tablename = $GLOBALS['tableprefix'] .'tags';
-    }
+  function TagService(&$db) {
+    $this->db =& $db;
+    $this->tablename = $GLOBALS['tableprefix'] .'tags';
+  }
 
-    function isNotSystemTag($var) {
-        if (utf8_substr($var, 0, 7) == 'system:')
-            return false;
-        else
-            return true;
-    }
+  function isNotSystemTag($var) {
+    return !(utf8_substr($var, 0, 7) == 'system:');
+  }
 
     function attachTags($bookmarkid, $tags, $fromApi = false, $extension = NULL, $replace = true, $fromImport = false) {
         // Make sure that categories is an array of trimmed strings, and that if the categories are
@@ -31,7 +29,11 @@ class TagService {
                 if (substr($tags, -1) == ',') {
                     $tags = substr($tags, 0, -1);
                 }
-                $tags = explode(' ', $tags);
+                if ($fromApi) {
+                    $tags = explode(' ', $tags);
+                } else {
+                    $tags = explode(',', $tags);
+                }
             } else {
                 $tags = null;
             }
@@ -41,7 +43,7 @@ class TagService {
         for ($i = 0; $i < $tags_count; $i++) {
             $tags[$i] = trim(strtolower($tags[$i]));
             if ($fromApi) {
-                include_once(dirname(__FILE__) .'/../functions.inc.php');
+                include_once dirname(__FILE__) .'/../functions.inc.php';
                 $tags[$i] = convertTag($tags[$i], 'in');
             }
         }
@@ -60,7 +62,7 @@ class TagService {
 
         // Media and file types
         if (!is_null($extension)) {
-            include_once(dirname(__FILE__) .'/../functions.inc.php');
+            include_once dirname(__FILE__) .'/../functions.inc.php';
             if ($keys = multi_array_search($extension, $GLOBALS['filetypes'])) {
                 $tags[] = 'system:filetype:'. $extension;
                 $tags[] = 'system:media:'. array_shift($keys);
@@ -346,7 +348,7 @@ class TagService {
         }
 
         if ($sortOrder == 'alphabet_asc') {
-            usort($output, create_function('$a,$b','return strcasecmp(utf8_deaccent($a["tag"]), utf8_deaccent($b["tag"]));'));
+            usort($output, create_function('$a,$b','return strcmp(utf8_strtolower($a["tag"]), utf8_strtolower($b["tag"]));'));
         }
 
         return $output;
@@ -356,4 +358,3 @@ class TagService {
     function getTableName()       { return $this->tablename; }
     function setTableName($value) { $this->tablename = $value; }
 }
-?>

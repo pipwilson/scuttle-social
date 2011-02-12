@@ -11,16 +11,17 @@
     for ($i = 0; $i < $size; $i++) {
         echo '<link rel="alternate" type="application/rss+xml" title="'. $rsschannels[$i][0] .'" href="'. $rsschannels[$i][1] .'" />';
     }
-    if ($loadjs) {
-        echo '<script type="text/javascript" src="'. $GLOBALS['root'] .'jsScuttle.php"></script>';
-    }
     ?>
+    <?php if ($loadjs): ?>
+      <script type="text/javascript" src="<?php echo $GLOBALS['root']; ?>includes/jquery-1.4.4.min.js"></script>
+      <script type="text/javascript" src="<?php echo $GLOBALS['root']; ?>jsScuttle.php"></script>
+    <?php endif; ?>
 </head>
 <body>
 
 <?php
 $headerstyle = '';
-if(isset($_GET['popup'])) {
+if (isset($_GET['popup'])) {
     $headerstyle = ' class="popup"';
 }
 ?>
@@ -28,7 +29,7 @@ if(isset($_GET['popup'])) {
 <div id="header"<?php echo $headerstyle; ?>>
     <h1><a href="<?php echo $GLOBALS['root']; ?>"><?php echo $GLOBALS['sitename']; ?></a></h1>
     <?php
-    if(!isset($_GET['popup'])) {
+    if (!isset($_GET['popup'])) {
         $this->includeTemplate('toolbar.inc');
     }
     ?>

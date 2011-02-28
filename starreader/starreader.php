@@ -3,6 +3,7 @@ require_once('../header.inc.php');
 
 define('GREADER_USER_ID', '');
 define('ITEM_COUNT', '20');
+
 define('SCUTTLE_USERNAME', '');
 define('SCUTTLE_PASSWORD', '');
 
@@ -25,6 +26,8 @@ for ($i = 0; $i < $num_returned_items; $i ++) {
     $title = $decoded->items[$i]->title;
     $description = $decoded->items[$i]->content;
 
+    $dt = date('c', $decoded->items[$i]->published);
+
     // code below re-used from api/posts_add.php
 
     // Error out if there's no address or description
@@ -35,7 +38,7 @@ for ($i = 0; $i < $num_returned_items; $i ++) {
         if ($bookmarkservice->bookmarkExists($url, $userservice->getCurrentUserId()))
             $added = FALSE;
         else
-            $added = $bookmarkservice->addBookmark($url, $title, $description, $extended, $status, $tags, $dt, TRUE);
+            $added = $bookmarkservice->addBookmark($url, $title, $description, null, 'starred, googlereader', $dt);
     }
 
 }

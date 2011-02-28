@@ -1,7 +1,7 @@
 <?php
 require_once('../header.inc.php');
 
-define('GREADER_USER_ID', '03502178508736845864');
+define('GREADER_USER_ID', '');
 define('ITEM_COUNT', '20');
 define('SCUTTLE_USERNAME', '');
 define('SCUTTLE_PASSWORD', '');
@@ -11,7 +11,7 @@ $userservice =& ServiceFactory::getServiceInstance('UserService');
 $login = $userservice->login(SCUTTLE_USERNAME, SCUTTLE_PASSWORD);
 
 // "javascript" can be replaced with "atom" to get that representation
-// http://www.google.com/reader/public/javascript/user/03502178508736845864/state/com.google/starred?n=2
+// http://www.google.com/reader/public/javascript/user/blah/state/com.google/starred?n=2
 $json = file_get_contents('http://www.google.com/reader/public/javascript/user/'.GREADER_USER_ID.'/state/com.google/starred?n='.ITEM_COUNT);
 
 $decoded = json_decode($json);
